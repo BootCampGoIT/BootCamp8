@@ -1,4 +1,4 @@
-const darkColors = {
+export const darkColors = {
   primary: "#424242",
   secondary: "#3d3d3d",
   background: "#212121",
@@ -14,7 +14,7 @@ const darkColors = {
   edit: "#14dc6783",
 };
 
-const lightColors = {
+export const lightColors = {
   primary: "#ffffff",
   secondary: "#dbd7d8",
   background: "#ffffff",
@@ -29,3 +29,7 @@ const lightColors = {
   attention: "#dc143c",
   edit: "#1bdc14",
 };
+
+// const colors = { darkColors, lightColors };
+
+// export default colors;

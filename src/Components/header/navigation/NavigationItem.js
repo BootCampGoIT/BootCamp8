@@ -1,13 +1,15 @@
 import propTypes from "prop-types";
 import React from "react";
+// import { darkColors } from "../../../styles/colors";
+import { StyledListItem } from "./NavigationListItemStyled";
 
-const NavigationItem = ({ item }) => {
+const NavigationItem = ({ item, colors }) => {
   return (
-    <li className='navigationItem'>
-      <a href='/#' className='anchor'>
+    <StyledListItem colors={colors}>
+      <a href='/#' className='navigationItemAnchor'>
         {item}
       </a>
-    </li>
+    </StyledListItem>
   );
 };
 

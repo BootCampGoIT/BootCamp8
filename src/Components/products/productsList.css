@@ -1,0 +1,15 @@
+.productList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .productList {
+
+      margin-left: -10px;
+    }
+  }
+
+
