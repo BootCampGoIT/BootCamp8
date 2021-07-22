@@ -9,14 +9,6 @@ export const data = {
   products: {
     tools: [
       {
-        id: "rdhgh12331312",
-        name: 'Набор инструментов Alloid 3/8" 78 предметов',
-        image: "https://content.rozetka.com.ua/goods/images/big/11177915.jpg",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ducimus placeat libero asperiores possimus nisi consequuntur soluta, esse sint suscipit ut laboriosam. Officiis soluta amet quas repellendus doloremque nam labore, aut, dicta reprehenderit consequuntur impedit beatae a corrupti saepe, ipsam nisi aperiam totam dolore dolorem ullam id! Consequatur, itaque quasi?",
-        price: 1399,
-      },
-      {
         id: "rdhgh12331fwddfw312",
         name: 'Набор инструментов Alloid 3/8" 78 предметов',
         image: "https://content.rozetka.com.ua/goods/images/big/11177915.jpg",

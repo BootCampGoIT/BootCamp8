@@ -3,18 +3,16 @@ import { data } from "../../data/data";
 import ProductsListItem from "./ProductsListItem";
 import "./productsList.css";
 
-const ProductsList = ({ category = "tools" }) => {
+const ProductsList = ({ category = "tools", addToCart }) => {
   return (
-    <ul className='productList'>
-      {data.products[category].map((product) => (
-        <ProductsListItem {...product} key={product.id} />
-      ))}
-    </ul>
+    <>
+      <ul className='productList'>
+        {data.products[category].map((product) => (
+          <ProductsListItem {...product} key={product.id} addToCart={addToCart}/>
+        ))}
+      </ul>
+    </>
   );
 };
-
-// ProductsList.defaultProps = {
-//   category: "tools",
-// };
 
 export default ProductsList;

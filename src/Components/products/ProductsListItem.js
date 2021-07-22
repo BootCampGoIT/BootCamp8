@@ -3,7 +3,18 @@ import { darkColors } from "../../styles/colors";
 
 import { ProductsListItemStyled } from "./ProductsListItemStyled";
 
-const ProductsListItem = ({ name, image, description, price }) => {
+const ProductsListItem = ({
+  name,
+  image,
+  description,
+  price,
+  id,
+  addToCart,
+}) => {
+  const addNewProduct = () => {
+    addToCart({ name, price, id, quantity: 1 });
+  };
+
   return (
     <ProductsListItemStyled colors={darkColors}>
       <h2 className={"productTitle"}>{name}</h2>
@@ -31,7 +42,10 @@ const ProductsListItem = ({ name, image, description, price }) => {
         {price}
       </p>
       <div className='optionButtons'>
-        <button type='button' className='button addButton'>
+        <button
+          type='button'
+          className='button addButton'
+          onClick={addNewProduct}>
           Add to cart
         </button>
         <button type='button' className='button detailsButton'>
