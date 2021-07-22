@@ -4,6 +4,10 @@ export const CartItemStyled = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+  &:last-child {
+    margin-bottom: 10px;
+  }
 
   .options {
     display: flex;
@@ -23,6 +27,15 @@ export const CartItemStyled = styled.li`
     color: ${(props) => props.colors.main};
   }
 
+  .cartItemTitle {
+    flex-grow: 1;
+  }
+
+  .cartItemPrice {
+    font-weight: 700;
+    margin-right: 20px;
+  }
+
   .buttonIcon {
     fill: currentColor;
     width: 20px;
@@ -32,6 +45,8 @@ export const CartItemStyled = styled.li`
   .cartItemQuantity {
     margin: 0 10px;
     font-weight: 700;
+    width: 20px;
+    text-align: center;
   }
 
   .options button:last-child {
@@ -42,5 +57,8 @@ export const CartItemStyled = styled.li`
     border: 1px solid ${(props) => props.colors.active};
     color: ${(props) => props.colors.active};
     cursor: pointer;
+    transform: scale(1.1);
+    transition: 300ms;
+    
   }
 `;

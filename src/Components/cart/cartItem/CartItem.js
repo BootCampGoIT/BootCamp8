@@ -26,7 +26,7 @@ const CartItem = ({
   return (
     <CartItemStyled key={id} colors={darkColors}>
       <h3 className='cartItemTitle'>{name}</h3>
-      <p className='cartItemPrice'>{price}</p>
+      <p className='cartItemPrice'>{price} UAH/PCS</p>
       <div className='options'>
         <button type='button' disabled={quantity === 1} onClick={remove}>
           <svg className='buttonIcon'>

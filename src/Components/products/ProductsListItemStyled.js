@@ -7,7 +7,7 @@ export const ProductsListItemStyled = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid ${({ colors }) => colors.primary};
+  /* border: 1px solid ${({ colors }) => colors.primary}; */
   -webkit-box-shadow: 6px 6px 39px -6px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 6px 6px 39px -6px rgba(0, 0, 0, 0.75);
   box-shadow: 6px 6px 39px -6px rgba(0, 0, 0, 0.75);
@@ -76,7 +76,6 @@ export const ProductsListItemStyled = styled.li`
     flex-basis: calc((100% - 40px) / 4);
     margin-left: 10px;
     height: 650px;
-
     margin-top: 10px;
   }
 `;
