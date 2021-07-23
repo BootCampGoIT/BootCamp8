@@ -3,9 +3,9 @@ import Header from "./header/Header";
 import Main from "./main/Main";
 
 const App = ({ navItems }) => {
-return (
+  return (
     <>
-      <Header navItems={navItems}  />
+      <Header navItems={navItems} />
       <Main />
     </>
   );
