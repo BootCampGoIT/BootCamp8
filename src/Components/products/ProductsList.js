@@ -3,12 +3,22 @@ import { data } from "../../data/data";
 import ProductsListItem from "./ProductsListItem";
 import "./productsList.css";
 
-const ProductsList = ({ category = "tools", addToCart }) => {
+const ProductsList = ({
+  category = "tools",
+  addToCart,
+  addPopular,
+  products,
+}) => {
   return (
     <>
       <ul className='productList'>
-        {data.products[category].map((product) => (
-          <ProductsListItem {...product} key={product.id} addToCart={addToCart}/>
+        {products.map((product) => (
+          <ProductsListItem
+            {...product}
+            key={product.id}
+            addToCart={addToCart}
+            addPopular={addPopular}
+          />
         ))}
       </ul>
     </>

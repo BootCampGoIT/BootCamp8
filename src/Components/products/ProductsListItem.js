@@ -10,9 +10,14 @@ const ProductsListItem = ({
   price,
   id,
   addToCart,
+  addPopular,
 }) => {
   const addNewProduct = () => {
     addToCart({ name, price, id, quantity: 1 });
+  };
+
+  const onHandleClick = () => {
+    addPopular({ id, name });
   };
 
   return (
@@ -48,7 +53,10 @@ const ProductsListItem = ({
           onClick={addNewProduct}>
           Add to cart
         </button>
-        <button type='button' className='button detailsButton'>
+        <button
+          type='button'
+          className='button detailsButton'
+          onClick={onHandleClick}>
           Details
         </button>
       </div>
