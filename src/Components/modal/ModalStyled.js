@@ -9,54 +9,44 @@ const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #000000b2;
   z-index: 1200;
   overflow: auto;
-
-  .Modal {
+  .modal {
     position: relative;
-    background-color: lightgray;
-    /* max-width: calc(100vw - 40px);
-    min-width: calc(100vw - 40px);
-    max-height: calc(100vh - 40px); */
+    background-color: #3d3d3d;
     border-radius: 14px;
     overflow: hidden;
   }
-
   .modalIcon {
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
-
-  /* ================ animations =========== */
-
-  .modal-appear {
-    opacity: 0;
-    transform: scale(0.8);
+  .modalBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    fill: #504f4f;
   }
-  .modal-appear-active {
-    opacity: 1;
-    transform: scale(1);
-    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  .modalBtn:hover {
+    fill: #819ff5;
   }
-  .modal-exit {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .modal-exit-active {
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
   @media (min-width: 768px) {
-    .Modal {
+    .modal {
       /* max-width: calc(100vw - 40px);
       max-height: calc(100vh - 40px);
       min-width: calc(100vw - 280px); */
     }
   }
   @media (min-width: 1024px) {
-    .Modal {
+    .modal {
       /* min-width: calc(100vw - 1000px); */
     }
   }

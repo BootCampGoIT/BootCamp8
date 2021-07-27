@@ -6,9 +6,13 @@ import Overlay from "./ModalStyled";
 const Modal = ({ children, hideModal, isOpen }) => {
   useEffect(() => {
     window.addEventListener("keydown", handleEsc);
+    const body = document.querySelector("body");
+    body.style.overflow = "hidden";
 
     return () => {
       window.removeEventListener("keydown", handleEsc);
+      const body = document.querySelector("body");
+      body.style.overflow = "auto";
     };
   });
 

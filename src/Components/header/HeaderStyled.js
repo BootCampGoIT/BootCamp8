@@ -12,4 +12,13 @@ export const HeaderStyled = styled.header`
   .headerLogo {
     color: ${({ colors }) => colors.main};
   }
+  .headerIcon {
+    width: 40px;
+    height: 40px;
+    fill: #819ff5;
+    &:hover {
+      fill: #5f73a1;
+      cursor: pointer;
+    }
+  }
 `;

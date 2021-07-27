@@ -1,21 +1,22 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
-import NavigationItem from "./NavigationItem";
+import { data } from "../../../data/data";
 import { NavigationList } from "./NavigationStyled";
 
-const Navigation = ({ navItems, colors }) => {
+const Navigation = () => {
   return (
     <NavigationList>
-      {navItems.map(({ name }) => (
-        <NavigationItem item={name} key={uuidv4()} colors={colors} />
-      ))}
+      <ul className='navigationList'>
+        {data.header.map((headerItem) => (
+          <li key={headerItem.id} className='navigationListItem'>
+            <a href={`${headerItem.name}`} className='navigationListItemAnchor'>
+              {headerItem.name}
+            </a>
+          </li>
+        ))}
+      </ul>
     </NavigationList>
   );
-};
-
-Navigation.propTypes = {
-  navItems: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Navigation;

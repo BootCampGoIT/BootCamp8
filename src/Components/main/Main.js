@@ -20,11 +20,13 @@ class Main extends Component {
     const response = await axios.get(
       "https://shopbc8-30b11-default-rtdb.firebaseio.com/products.json"
     );
-    const data = Object.keys(response.data).map((item) => ({
-      ...response.data[item],
-      id: item,
-    }));
-    this.setState({ products: data });
+    if (response.data) {
+      const data = Object.keys(response.data).map((item) => ({
+        ...response.data[item],
+        id: item,
+      }));
+      this.setState({ products: data });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -125,10 +127,10 @@ class Main extends Component {
             </Section>
           </Modal>
         )}
-        {/* <Section title='Authorization'>
+        <Section title='Authorization'>
           <AuthForm />
-        </Section> */}
-        {/* <Section title='Tools'>
+        </Section>
+        <Section title='Tools'>
           <ProductsList
             products={this.state.products}
             addToCart={this.addToCart}
@@ -142,16 +144,8 @@ class Main extends Component {
             addItem={this.addItem}
             removeItem={this.removeItem}
           />
-        </Section> */}
-
-        {/* <Section title='Cart'>
-          <Cart
-            cart={this.state.cart}
-            removeFromCart={this.removeFromCart}
-            addItem={this.addItem}
-            removeItem={this.removeItem}
-          />
         </Section>
+        {/* 
 
         <Section title='Tools'>
           <ProductsList
