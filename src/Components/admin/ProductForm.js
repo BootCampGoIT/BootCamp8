@@ -1,9 +1,11 @@
 import axios from "axios";
-import React, { Component, useState, useEffect } from "react";
-import { createCopy } from "../../utils/deepCopy";
+import React, { Component } from "react";
+
+import { createNewAdv } from "../../services/productsAPI/products";
+
 import { ProductFormStyled } from "./ProductFormStyled";
 
-const categories = ["Tools", "Toys"];
+const categories = ["Tools", "Toys", "Cars"];
 
 const INITIAL_STATE = {
   name: "",
@@ -12,8 +14,7 @@ const INITIAL_STATE = {
   price: 0,
   category: categories[0],
   isSale: false,
-  isAddData: false,
-  changed: false,
+  isLoading: false,
 };
 
 function toDataURL(element) {
@@ -24,113 +25,124 @@ function toDataURL(element) {
   });
 }
 
-const ProductForm = ({ addNewProduct }) => {
-  const [state, setState] = useState(INITIAL_STATE);
-  const onHandleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://shopbc8-30b11-default-rtdb.firebaseio.com/products.json",
-        state
-      );
-      addNewProduct({ ...state, id: response.data.name });
-    } catch (error) {
-      setState((prev) => ({ ...prev, error: error.response.data.error }));
-    }
+class ProductForm extends Component {
+  state = { ...INITIAL_STATE };
 
-    setState({ ...INITIAL_STATE });
+  onHandleSubmit = async (e) => {
+    e.preventDefault();
+    const { name, image, description, price, category, isSale } = this.state;
+    this.setState({ isLoading: true });
+    try {
+      const response = await createNewAdv({
+        name,
+        image,
+        description,
+        price,
+        category,
+        isSale,
+      });
+      this.props.addNewProduct({ ...this.state, id: response.data.name });
+      this.setState({ ...INITIAL_STATE });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
   };
 
-  const onHandleChange = async (e) => {
+  onHandleChange = async (e) => {
     const { name, value, checked, type } = e.target;
     if (type === "checkbox") {
-      setState((prev) => ({ ...prev, [name]: checked }));
+      this.setState({ [name]: checked });
       return;
     }
 
     if (type === "file") {
       const result = await toDataURL(e.target);
-      console.log("result :>> ", result);
-      setState((prev) => ({ ...prev, [name]: result }));
+      this.setState({ [name]: result });
       return;
     }
-    setState((prev) => ({ ...prev, [name]: value }));
+    this.setState({ [name]: value });
   };
+  render() {
+    const { name, description, price, category, isSale, isLoading } =
+      this.state;
+    return (
+      <ProductFormStyled>
+        {isLoading && <p>...loading</p>}
+        <form onSubmit={this.onHandleSubmit} className='productForm'>
+          <label className='productLabel'>
+            Name
+            <input
+              type='text'
+              name='name'
+              value={name}
+              onChange={this.onHandleChange}
+              className='productInput'
+            />
+          </label>
+          <label className='productLabel'>
+            Image
+            <input
+              type='file'
+              name='image'
+              onChange={this.onHandleChange}
+              className='productInput'
+            />
+          </label>
+          <label className='productLabel'>
+            Description
+            <textarea
+              name='description'
+              cols='30'
+              rows='10'
+              value={description}
+              onChange={this.onHandleChange}
+              className='productArea'
+            />
+          </label>
+          <label className='productLabel'>
+            Price
+            <input
+              type='number'
+              name='price'
+              value={price}
+              onChange={this.onHandleChange}
+              className='productInput'
+            />
+          </label>
+          <label className='productLabel'>
+            Category
+            <select
+              name='category'
+              value={category}
+              onChange={this.onHandleChange}
+              className='productSelect'>
+              {categories.map((category) => (
+                <option value={category.toLowerCase()} key={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className='advFormLabelCheckBox'>
+            Is sale
+            <input
+              type='checkbox'
+              name='isSale'
+              checked={isSale}
+              onChange={this.onHandleChange}
+              className='advFormCheckBox '
+            />
+          </label>
 
-  return (
-    <ProductFormStyled>
-      <form onSubmit={onHandleSubmit} className='productForm'>
-        <label className='productLabel'>
-          Name
-          <input
-            type='text'
-            name='name'
-            value={state.name}
-            onChange={onHandleChange}
-            className='productInput'
-          />
-        </label>
-        <label className='productLabel'>
-          Image
-          <input
-            type='file'
-            name='image'
-            onChange={onHandleChange}
-            className='productInput'
-          />
-        </label>
-        <label className='productLabel'>
-          Description
-          <textarea
-            name='description'
-            cols='30'
-            rows='10'
-            value={state.description}
-            onChange={onHandleChange}
-            className='productArea'
-          />
-        </label>
-        <label className='productLabel'>
-          Price
-          <input
-            type='number'
-            name='price'
-            value={state.price}
-            onChange={onHandleChange}
-            className='productInput'
-          />
-        </label>
-        <label className='productLabel'>
-          Category
-          <select
-            name='category'
-            value={state.category}
-            onChange={onHandleChange}
-            className='productSelect'>
-            {categories.map((category) => (
-              <option value={category.toLowerCase()} key={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className='advFormLabelCheckBox'>
-          Is sale
-          <input
-            type='checkbox'
-            name='isSale'
-            checked={state.isSale}
-            onChange={onHandleChange}
-            className='advFormCheckBox '
-          />
-        </label>
-
-        <button type='submit' className='productButton'>
-          Add product
-        </button>
-      </form>
-    </ProductFormStyled>
-  );
-};
+          <button type='submit' className='productButton'>
+            Add product
+          </button>
+        </form>
+      </ProductFormStyled>
+    );
+  }
+}
 
 export default ProductForm;

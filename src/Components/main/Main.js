@@ -51,10 +51,8 @@ class Main extends Component {
   };
 
   addNewProduct = (product) => {
-    //{name, price, id}
     this.setState((prev) => ({
       products: [...prev.products, product],
-      isFormOpen: !prev.isFormOpen,
     }));
   };
 

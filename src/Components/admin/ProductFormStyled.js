@@ -28,7 +28,6 @@ export const ProductFormStyled = styled.div`
   .productArea {
     outline: none;
     border: 1px solid #819ff5;
-
     border-radius: 14px;
     padding: 10px;
   }
@@ -38,9 +37,9 @@ export const ProductFormStyled = styled.div`
     margin-top: 10px;
     font-size: 16px;
   }
-
   .advFormCheckBox {
     margin-left: 10px;
+    cursor: pointer;
   }
   .productButton {
     width: 150px;
