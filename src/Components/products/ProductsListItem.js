@@ -30,14 +30,7 @@ const ProductsListItem = ({
         width='200'
         height='200'
       />
-      <p className='productDescription'>
-        <b>
-          <em>
-            <span>Decription: </span>
-          </em>
-        </b>
-        {description}
-      </p>
+     
       <p className='productPrice'>
         <b>
           <em>

@@ -19,7 +19,7 @@ export const ProductsListItemStyled = styled.li`
     text-align: center;
   }
   .productImage {
-    height: 300px;
+    width: 100px;
     margin-top: 20px;
   }
   .productDescription {
@@ -37,8 +37,7 @@ export const ProductsListItemStyled = styled.li`
 
   .optionButtons button {
     width: 50%;
-
-    padding: 10px;
+    height: 30px;
     text-transform: uppercase;
     border: none;
     /* background-color: ; */
@@ -52,18 +51,20 @@ export const ProductsListItemStyled = styled.li`
     margin-right: 1px;
     border-radius: 14px 0 0 14px;
     transition: 300ms;
+    font-size: 14px;
   }
 
   .detailsButton {
     transition: 300ms;
     border-radius: 0 14px 14px 0;
+    font-size: 14px;
   }
 
   @media screen and (min-width: 768px) {
     flex-basis: calc((100% - 20px) / 2);
     margin-left: 10px;
-    height: 650px;
-    transition: all 200ms linear ;
+    height: 350px;
+    transition: all 200ms linear;
     &:hover {
       transform: scale(1.01);
     }

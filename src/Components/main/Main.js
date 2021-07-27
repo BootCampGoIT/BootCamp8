@@ -13,7 +13,6 @@ class Main extends Component {
     products: [],
     cart: [],
     visited: [],
-    isFormOpen: false,
   };
 
   async componentDidMount() {
@@ -109,27 +108,17 @@ class Main extends Component {
     }));
   };
 
-  openEditForm = () => {
-    this.setState((prev) => ({ isFormOpen: !prev.isFormOpen }));
-  };
-
   render() {
     const { isFormOpen } = this.state;
     return (
       <MainStyled>
-        <button type='button' onClick={this.openEditForm}>
-          {isFormOpen ? "Close" : "Open"} edit form
-        </button>
-        {isFormOpen && (
-          <Modal isOpen={isFormOpen} hideModal={this.openEditForm}>
-            <Section title='Administration'>
-              <ProductForm addNewProduct={this.addNewProduct} />
-            </Section>
-          </Modal>
-        )}
-        <Section title='Authorization'>
-          <AuthForm />
+        <Section title='Administration'>
+          <ProductForm addNewProduct={this.addNewProduct} />
         </Section>
+
+        {/* <Section title='Authorization'>
+          <AuthForm />
+        </Section> */}
         <Section title='Tools'>
           <ProductsList
             products={this.state.products}
@@ -137,14 +126,14 @@ class Main extends Component {
             addPopular={this.addPopular}
           />
         </Section>
-        <Section title='Cart'>
+        {/* <Section title='Cart'>
           <Cart
             cart={this.state.cart}
             removeFromCart={this.removeFromCart}
             addItem={this.addItem}
             removeItem={this.removeItem}
           />
-        </Section>
+        </Section> */}
         {/* 
 
         <Section title='Tools'>
