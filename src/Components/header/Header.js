@@ -18,6 +18,7 @@ class Header extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.handleResizeWindow);
   }
+  
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleResizeWindow);
   }

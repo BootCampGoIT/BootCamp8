@@ -5,7 +5,7 @@ import { createNewAdv } from "../../services/productsAPI/products";
 
 import { ProductFormStyled } from "./ProductFormStyled";
 
-const categories = ["Tools", "Toys", "Cars"];
+const categories = ["tools", "toys", "cars"];
 
 const INITIAL_STATE = {
   name: "",
@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   category: categories[0],
   isSale: false,
   isLoading: false,
+  error: ""
 };
 
 function toDataURL(element) {

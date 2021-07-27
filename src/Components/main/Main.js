@@ -1,5 +1,10 @@
 import axios from "axios";
 import React, { Component } from "react";
+import {
+  getProductByCategory,
+  getProducts,
+  removeProductByID,
+} from "../../services/productsAPI/products";
 import ProductForm from "../admin/ProductForm";
 import AuthForm from "../auth/AuthForm";
 import Cart from "../cart/Cart";
@@ -10,54 +15,44 @@ import { MainStyled } from "./MainStyled";
 
 class Main extends Component {
   state = {
-    products: [],
+    products: {
+      tools: [],
+      cars: [],
+    },
     cart: [],
     visited: [],
   };
 
+  // {name, price, decr, category}
+
   async componentDidMount() {
-    const response = await axios.get(
-      "https://shopbc8-30b11-default-rtdb.firebaseio.com/products.json"
-    );
-    if (response.data) {
-      const data = Object.keys(response.data).map((item) => ({
-        ...response.data[item],
-        id: item,
-      }));
-      this.setState({ products: data });
+    try {
+      const products = await getProducts();
+      this.setState({ products: products });
+    } catch (error) {
+      console.log(error);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     // console.log("componentDidUpdate");
   }
-
-  addPopular = async (product) => {
-    // console.log("post id");
-    const response = await axios.patch(
-      `https://shopbc8-30b11-default-rtdb.firebaseio.com/products/${product.id}.json`,
-      {
-        popular:
-          this.state.products.find((item) => item.id === product.id).popular +
-          1,
-      }
-    );
-
-    this.setState((prev) => ({
-      products: prev.products.map((item) =>
-        item.id === product.id ? { ...item, popular: item.popular + 1 } : item
-      ),
-    }));
-  };
-
   addNewProduct = (product) => {
-    this.setState((prev) => ({
-      products: [...prev.products, product],
-    }));
+    if (this.state.products.hasOwnProperty(product.category)) {
+      this.setState((prev) => ({
+        products: {
+          ...prev.products,
+          [product.category]: [...prev.products[product.category], product],
+        },
+      }));
+    } else {
+      this.setState((prev) => ({
+        products: { ...prev.products, [product.category]: [product] },
+      }));
+    }
   };
 
   addToCart = (product) => {
-    this.addPopular(product);
     if (this.state.cart.some((cartItem) => cartItem.id === product.id)) {
       this.setState((prev) => ({
         cart: prev.cart.map((cartItem) =>
@@ -107,31 +102,43 @@ class Main extends Component {
   };
 
   render() {
-    const { isFormOpen } = this.state;
+    const { products } = this.state;
     return (
       <MainStyled>
+        <button
+          id='-MfbM5ZoqsCUi820A67x'
+          data-category='cars'
+          onClick={(e) =>
+            removeProductByID(e.target.dataset.category, e.target.id)
+          }>
+          Delete
+        </button>
         <Section title='Administration'>
           <ProductForm addNewProduct={this.addNewProduct} />
         </Section>
 
+        {Object.keys(products).map((category) => (
+          <Section title={category} key={category}>
+            <ProductsList
+              products={this.state.products[category]}
+              addToCart={this.addToCart}
+            />
+          </Section>
+        ))}
+
+        {/* ======================= */}
+
         {/* <Section title='Authorization'>
           <AuthForm />
         </Section> */}
-        <Section title='Tools'>
-          <ProductsList
-            products={this.state.products}
-            addToCart={this.addToCart}
-            addPopular={this.addPopular}
-          />
-        </Section>
-        {/* <Section title='Cart'>
+        <Section title='Cart'>
           <Cart
             cart={this.state.cart}
             removeFromCart={this.removeFromCart}
             addItem={this.addItem}
             removeItem={this.removeItem}
           />
-        </Section> */}
+        </Section>
         {/* 
 
         <Section title='Tools'>
@@ -154,3 +161,32 @@ class Main extends Component {
 }
 
 export default Main;
+
+const getImages = async (query, page = 1) => {
+  try {
+    const response = await axios.get(
+      `https://pixabay?query=${query}&page=${page}`
+    );
+    return response.data;
+  } catch (error) {}
+};
+
+const state = {
+  images: [],
+  page: 1,
+  query: "cat",
+};
+
+const find = () => {
+  getImages(state.query).then((data) => {
+    state.images = [...data];
+    state.page = 2;
+  });
+};
+
+const loadMore = () => {
+  getImages(state.query, state.page).then((data) => {
+    state.images = [...state.images, ...data];
+    state.page += 1;
+  });
+};

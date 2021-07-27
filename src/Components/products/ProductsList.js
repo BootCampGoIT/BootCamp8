@@ -6,7 +6,7 @@ import "./productsList.css";
 const ProductsList = ({
   category = "tools",
   addToCart,
-  addPopular,
+
   products,
 }) => {
   return (
@@ -17,7 +17,7 @@ const ProductsList = ({
             {...product}
             key={product.id}
             addToCart={addToCart}
-            addPopular={addPopular}
+       
           />
         ))}
       </ul>

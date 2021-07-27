@@ -10,14 +10,14 @@ const ProductsListItem = ({
   price,
   id,
   addToCart,
-  addPopular,
+
 }) => {
   const addNewProduct = () => {
     addToCart({ name, price, id, quantity: 1 });
   };
 
   const onHandleClick = () => {
-    addPopular({ id, name });
+
   };
 
   return (
